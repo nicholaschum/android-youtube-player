@@ -24,9 +24,13 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     class Builder {
         companion object {
             private const val AUTO_PLAY = "autoplay"
+            private const val AUTO_HIDE = "autohide"
             private const val CONTROLS = "controls"
+            private const val DISABLEKB = "disablekb"
             private const val ENABLE_JS_API = "enablejsapi"
             private const val FS = "fs"
+            private const val LOOP = "loop"
+            private const val MUTE = "mute"
             const val ORIGIN = "origin"
             private const val REL = "rel"
             private const val SHOW_INFO = "showinfo"
@@ -40,9 +44,13 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
 
         init {
             addInt(AUTO_PLAY, 0)
+            addInt(AUTO_HIDE, 0)
             addInt(CONTROLS, 0)
+            addInt(DISABLEKB, 0)
             addInt(ENABLE_JS_API, 1)
             addInt(FS, 0)
+            addInt(LOOP, 0)
+            addInt(MUTE, 0)
             addString(ORIGIN, "https://www.youtube.com")
             addInt(REL, 0)
             addInt(SHOW_INFO, 0)
@@ -56,11 +64,59 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
         }
 
         /**
+         * Controls whether the video controls should automatically hide
+         * If used in conjunction with Mute, the IFrame will not force WebView to requestAudioFocus
+         * @param controls If set to 0: controls will not auto hide. If set to 1: controls will auto hide.
+         */
+        fun autoHide(controls: Int): Builder {
+            addInt(AUTO_HIDE, controls)
+            return this
+        }
+
+        /**
+         * Controls whether the video should auto play
+         * If used in conjunction with Mute, the IFrame will not force WebView to requestAudioFocus
+         * @param controls If set to 0: video will not auto play. If set to 1: video will auto play.
+         */
+        fun autoPlay(controls: Int): Builder {
+            addInt(AUTO_PLAY, controls)
+            return this
+        }
+
+        /**
          * Controls whether the web-based UI of the IFrame player is used or not.
          * @param controls If set to 0: web UI is not used. If set to 1: web UI is used.
          */
         fun controls(controls: Int): Builder {
             addInt(CONTROLS, controls)
+            return this
+        }
+
+        /**
+         * Controls whether the web-based UI of the IFrame player can be controlled with a keyboard (DPAD)
+         * @param disableKb If set to 0: keyboard functionality will remain. If set to 1: keyboard functionality will be disabled.
+         */
+        fun disableKeyboard(disableKb: Int): Builder {
+            addInt(DISABLEKB, disableKb)
+            return this
+        }
+
+        /**
+         * Controls whether the video will loop after finishing
+         * @param loop If set to 0: video will not loop. If set to 1: video will loop.
+         */
+        fun loop(loop: Int): Builder {
+            addInt(LOOP, loop)
+            return this
+        }
+
+        /**
+         * Controls whether the IFrame player should be muted completely or not.
+         * If used in conjunction with autoPlay, the IFrame will not force WebView to requestAudioFocus
+         * @param mute If set to 0: IFrame player has an opportunity to control volume. If set to 1: IFrame player will be muted permanently.
+         */
+        fun mute(mute: Int): Builder {
+            addInt(MUTE, mute)
             return this
         }
 
