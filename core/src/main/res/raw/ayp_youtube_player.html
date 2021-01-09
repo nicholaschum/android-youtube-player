@@ -45,7 +45,10 @@
     			width: '100%',
     			
                 events: {
-    				onReady: function(event) { YouTubePlayerBridge.sendReady() },
+    				onReady: function(event) {
+                        event.target.mute();
+                        YouTubePlayerBridge.sendReady();
+                    },
     				onStateChange: function(event) { sendPlayerStateChange(event.data) },
     				onPlaybackQualityChange: function(event) { YouTubePlayerBridge.sendPlaybackQualityChange(event.data) },
     				onPlaybackRateChange: function(event) { YouTubePlayerBridge.sendPlaybackRateChange(event.data) },
