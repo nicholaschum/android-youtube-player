@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
@@ -103,6 +104,8 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
         val htmlPage = Utils
                 .readHTMLFromUTF8File(resources.openRawResource(R.raw.ayp_youtube_player))
                 .replace("<<injectedPlayerVars>>", playerOptions.toString())
+        
+        Log.d("WebViewYouTubePlayer", htmlPage)
 
         loadDataWithBaseURL(playerOptions.getOrigin(), htmlPage, "text/html", "utf-8", null)
 
