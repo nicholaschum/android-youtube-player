@@ -11,6 +11,7 @@ import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
+import com.pierfrancescosoffritti.androidyoutubeplayer.BuildConfig
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayerBridge
@@ -33,6 +34,15 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
     internal var isBackgroundPlaybackEnabled = false
 
     internal fun initialize(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?) {
+        youTubePlayerInitListener = initListener
+        initWebView(playerOptions ?: IFramePlayerOptions.default)
+    }
+
+    internal fun initializeWithoutFocus(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?) {
+        isFocusable = false
+        isFocusableInTouchMode = false
+        clearFocus()
+
         youTubePlayerInitListener = initListener
         initWebView(playerOptions ?: IFramePlayerOptions.default)
     }
