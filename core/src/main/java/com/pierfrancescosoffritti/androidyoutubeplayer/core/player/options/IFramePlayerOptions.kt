@@ -26,7 +26,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
             private const val AUTO_PLAY = "autoplay"
             private const val AUTO_HIDE = "autohide"
             private const val CONTROLS = "controls"
-            private const val DISABLEKB = "disablekb"
+            private const val DISABLE_KB = "disablekb"
             private const val ENABLE_JS_API = "enablejsapi"
             private const val FS = "fs"
             private const val LOOP = "loop"
@@ -46,7 +46,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
             addInt(AUTO_PLAY, 0)
             addInt(AUTO_HIDE, 0)
             addInt(CONTROLS, 0)
-            addInt(DISABLEKB, 0)
+            addInt(DISABLE_KB, 0)
             addInt(ENABLE_JS_API, 1)
             addInt(FS, 0)
             addInt(LOOP, 0)
@@ -97,7 +97,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
          * @param disableKb If set to 0: keyboard functionality will remain. If set to 1: keyboard functionality will be disabled.
          */
         fun disableKeyboard(disableKb: Int): Builder {
-            addInt(DISABLEKB, disableKb)
+            addInt(DISABLE_KB, disableKb)
             return this
         }
 
