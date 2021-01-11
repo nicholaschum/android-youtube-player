@@ -39,8 +39,16 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
     }
 
     internal fun initializeWithoutFocus(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?) {
+        isClickable = false
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            isContextClickable = false
+        }
+        isLongClickable = false
         isFocusable = false
         isFocusableInTouchMode = false
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            isFocusedByDefault = false
+        }
         clearFocus()
 
         youTubePlayerInitListener = initListener
