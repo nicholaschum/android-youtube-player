@@ -136,7 +136,6 @@ class DefaultPlayerUiController(private val youTubePlayerView: YouTubePlayerView
     }
 
     override fun showUi(show: Boolean): PlayerUiController {
-        fadeControlsContainer.isDisabled = !show
         controlsContainer.visibility = if (show) View.VISIBLE else View.INVISIBLE
         return this
     }
