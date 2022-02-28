@@ -11,9 +11,6 @@ ext.versions = [
 
         // Plugins
         gradlePlugin                    : '7.0.4',
-        dexCount                        : '3.0.1',
-        gradleNexus                     : '1.1.0',
-        dokka                           : '1.6.0',
 
         // Kotlin
         kotlin                          : '1.6.0',
