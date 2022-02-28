@@ -58,7 +58,7 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
         }
 
         if(enableAutomaticInitialization) {
-            legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, IFramePlayerOptions.default)
+            legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, true, IFramePlayerOptions.default)
         }
     }
 
@@ -105,7 +105,7 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
      */
     fun initialize(youTubePlayerListener: YouTubePlayerListener, playerOptions: IFramePlayerOptions) {
         if(enableAutomaticInitialization) throw IllegalStateException("YouTubePlayerView: If you want to initialize this view manually, you need to set 'enableAutomaticInitialization' to false")
-        else legacyTubePlayerView.initialize(youTubePlayerListener, true, playerOptions)
+        else legacyTubePlayerView.initialize(youTubePlayerListener, true, handleFocusableEvents = true, playerOptions = playerOptions)
     }
 
     /**
