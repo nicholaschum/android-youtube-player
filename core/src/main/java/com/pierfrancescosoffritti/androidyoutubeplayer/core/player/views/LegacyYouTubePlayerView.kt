@@ -80,9 +80,10 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
      * @param youTubePlayerListener listener for player events
      * @param handleNetworkEvents if set to true a broadcast receiver will be registered and network events will be handled automatically.
      * If set to false, you should handle network events with your own broadcast receiver.
+     * @param handleFocusableEvents if set to true (default), the user can interact with the window. If set to false, focus would not be granted to the user at all.
      * @param playerOptions customizable options for the embedded video player, can be null.
      */
-    fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions) {
+    fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, handleFocusableEvents: Boolean = true, playerOptions: IFramePlayerOptions?) {
         if(isYouTubePlayerReady)
             throw IllegalStateException("This YouTubePlayerView has already been initialized.")
 
@@ -90,7 +91,11 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
             context.registerReceiver(networkListener, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
 
         initialize = {
-            youTubePlayer.initialize({it.addListener(youTubePlayerListener)}, playerOptions)
+            if (handleFocusableEvents) {
+                youTubePlayer.initialize({it.addListener(youTubePlayerListener)}, playerOptions)
+            } else {
+                youTubePlayer.initializeWithoutFocus({it.addListener(youTubePlayerListener)}, playerOptions)
+            }
         }
 
         if(!handleNetworkEvents) {
@@ -105,7 +110,7 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
      *
      * @see LegacyYouTubePlayerView.initialize
      */
-    fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) = initialize(youTubePlayerListener, handleNetworkEvents, IFramePlayerOptions.default)
+    fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) = initialize(youTubePlayerListener, handleNetworkEvents, true, IFramePlayerOptions.default)
 
     /**
      * Initialize the player. Network events are automatically handled by the player.
