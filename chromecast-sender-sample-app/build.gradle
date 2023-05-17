@@ -10,6 +10,7 @@ android {
     targetSdkVersion versions.compileSdk
     versionCode versions.publishVersionCode_chromecast
     versionName versions.publishVersion_chromecast
+    multiDexEnabled true
   }
 
   buildTypes {

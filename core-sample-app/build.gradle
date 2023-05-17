@@ -11,6 +11,7 @@ android {
     targetSdkVersion versions.compileSdk
     versionCode versions.publishVersionCode_core
     versionName versions.publishVersion_core
+    multiDexEnabled true
   }
 
   buildTypes {
