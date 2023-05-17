@@ -87,11 +87,13 @@ internal class LegacyYouTubePlayerView(
    * @param youTubePlayerListener listener for player events
    * @param handleNetworkEvents if set to true a broadcast receiver will be registered and network events will be handled automatically.
    * If set to false, you should handle network events with your own broadcast receiver.
+   * @param handleFocusableEvents if set to true (default), the user can interact with the window. If set to false, focus would not be granted to the user at all.
    * @param playerOptions customizable options for the embedded video player, can be null.
    */
   fun initialize(
     youTubePlayerListener: YouTubePlayerListener,
     handleNetworkEvents: Boolean,
+    handleFocusableEvents: Boolean,
     playerOptions: IFramePlayerOptions
   ) {
     if (isYouTubePlayerReady) {
@@ -103,7 +105,11 @@ internal class LegacyYouTubePlayerView(
     }
 
     initialize = {
-      webViewYouTubePlayer.initialize({ it.addListener(youTubePlayerListener) }, playerOptions)
+      if (handleFocusableEvents) {
+        webViewYouTubePlayer.initialize({ it.addListener(youTubePlayerListener) }, playerOptions)
+      } else {
+        webViewYouTubePlayer.initializeWithoutFocus({ it.addListener(youTubePlayerListener) }, playerOptions)
+      }
     }
 
     if (!handleNetworkEvents) {
@@ -119,7 +125,7 @@ internal class LegacyYouTubePlayerView(
    * @see LegacyYouTubePlayerView.initialize
    */
   fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) =
-    initialize(youTubePlayerListener, handleNetworkEvents, IFramePlayerOptions.default)
+    initialize(youTubePlayerListener, handleNetworkEvents, true, IFramePlayerOptions.default)
 
   /**
    * Initialize the player. Network events are automatically handled by the player.
