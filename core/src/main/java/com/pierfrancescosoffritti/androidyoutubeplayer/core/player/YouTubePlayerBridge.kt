@@ -149,6 +149,13 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
     youTubePlayerOwner.listeners.forEach { it.onVideoId(youTubePlayerOwner.getInstance(), videoId) }
   }
 
+  @JavascriptInterface
+  fun sendVideoQuality(quality: String) {
+    mainThreadHandler.post {
+      youTubePlayerOwner.listeners.forEach { it.onVideoQuality(youTubePlayerOwner.getInstance(), quality) }
+    }
+  }
+
   private fun parsePlayerState(state: String): PlayerConstants.PlayerState {
     return when {
       state.equals(STATE_UNSTARTED, ignoreCase = true) -> PlayerConstants.PlayerState.UNSTARTED

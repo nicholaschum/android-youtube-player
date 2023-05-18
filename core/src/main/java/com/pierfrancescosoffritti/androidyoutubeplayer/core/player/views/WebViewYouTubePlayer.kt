@@ -42,6 +42,9 @@ private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
   }
   override fun seekTo(time: Float) = webView.invoke("seekTo", time)
   override fun setPlaybackRate(playbackRate: PlayerConstants.PlaybackRate) = webView.invoke("setPlaybackRate", playbackRate.toFloat())
+  override fun setPlaybackQuality(quality: String) {
+    mainThread.post { webView.loadUrl("javascript:setPlaybackQuality('$quality')") }
+  }
   override fun toggleFullscreen() = webView.invoke("toggleFullscreen")
   override fun addListener(listener: YouTubePlayerListener) = listeners.add(listener)
   override fun removeListener(listener: YouTubePlayerListener) = listeners.remove(listener)
@@ -129,6 +132,7 @@ internal class WebViewYouTubePlayer constructor(
       javaScriptEnabled = true
       mediaPlaybackRequiresUserGesture = false
       cacheMode = WebSettings.LOAD_DEFAULT
+      settings.domStorageEnabled = true
     }
 
     addJavascriptInterface(YouTubePlayerBridge(this), "YouTubePlayerBridge")
