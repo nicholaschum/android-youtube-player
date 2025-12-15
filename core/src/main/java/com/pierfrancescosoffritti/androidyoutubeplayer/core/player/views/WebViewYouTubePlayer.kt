@@ -3,6 +3,7 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
@@ -110,6 +111,23 @@ internal class WebViewYouTubePlayer constructor(
   private val youTubePlayerBridge = YouTubePlayerBridge(this)
 
   internal fun initialize(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?, videoId: String?) {
+    youTubePlayerInitListener = initListener
+    initWebView(playerOptions ?: IFramePlayerOptions.getDefault(context), videoId)
+  }
+  
+  internal fun initializeWithoutFocus(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?, videoId: String?) {
+    isClickable = false
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      isContextClickable = false
+    }
+    isLongClickable = false
+    isFocusable = false
+    isFocusableInTouchMode = false
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      isFocusedByDefault = false
+    }
+    clearFocus()
+
     youTubePlayerInitListener = initListener
     initWebView(playerOptions ?: IFramePlayerOptions.getDefault(context), videoId)
   }

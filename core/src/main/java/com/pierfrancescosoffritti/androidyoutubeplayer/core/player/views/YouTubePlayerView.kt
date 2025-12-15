@@ -89,6 +89,7 @@ class YouTubePlayerView(
       legacyTubePlayerView.initialize(
         youTubePlayerListener,
         handleNetworkEvents,
+		true,
         IFramePlayerOptions.getDefault(context),
         videoId
       )
@@ -101,7 +102,7 @@ class YouTubePlayerView(
       throw IllegalStateException(AUTO_INIT_ERROR)
     }
     else {
-      legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, playerOptions, videoId)
+      legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, true, playerOptions, videoId)
     }
   }
 
@@ -118,7 +119,23 @@ class YouTubePlayerView(
       throw IllegalStateException(AUTO_INIT_ERROR)
     }
     else {
-      legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, playerOptions, null)
+      legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, true, playerOptions, null)
+    }
+  }
+  
+  /**
+   * Initialize the player without WebView being focused. You must call this method before using the player.
+   * @param youTubePlayerListener listener for player events
+   * @param handleNetworkEvents if set to true a broadcast receiver will be registered and network events will be handled automatically.
+   * If set to false, you should handle network events with your own broadcast receiver.
+   * @param playerOptions customizable options for the embedded video player.
+   */
+  fun initializeWithoutFocus(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions) {
+    if (enableAutomaticInitialization) {
+      throw IllegalStateException(AUTO_INIT_ERROR)
+    }
+    else {
+	  legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, false, playerOptions, null)
     }
   }
 
