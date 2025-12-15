@@ -62,5 +62,11 @@ interface YouTubePlayerListener {
    */
   fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String)
 
+  /**
+   * Called when the quality of the current video is changed
+   * @param quality the quality of the video being played
+   */
+  fun onVideoQuality(youTubePlayer: YouTubePlayer, quality: String)
+
   fun onApiChange(youTubePlayer: YouTubePlayer)
 }

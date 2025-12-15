@@ -578,6 +578,9 @@ void onVideoLoadedFraction(@NonNull YouTubePlayer youTubePlayer, float loadedFra
 // Called when the id of the current video is loaded
 void onVideoId(@NonNull YouTubePlayer youTubePlayer, String videoId)
 
+// Called when the quality of the current video is loaded
+void onVideoQuality(@NonNull YouTubePlayer youTubePlayer, String quality)
+
 void onApiChange(@NonNull YouTubePlayer youTubePlayer)
 ```
 
