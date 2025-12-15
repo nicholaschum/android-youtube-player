@@ -40,5 +40,3 @@ ext {
   PUBLISH_ARTIFACT_ID = 'custom-ui'
   PUBLISH_DESCRIPTION = 'Custom UI to use with android-youtube-player core module.'
 }
-
-apply from: "../scripts/publish-module.gradle"
